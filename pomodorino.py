@@ -60,7 +60,7 @@ class PomodoroTimer:
 
         # Create a large button that fills the window
         self.start_button = tk.Button(self.root, text="Start", font=("Arial", 30), command=self.start_pomodoro)
-        self.start_button.config(bg="purple", fg="white")  # Set button background and text color
+        self.start_button.config(bg="white", fg="black")  # Set button background and text color
         self.start_button.pack(expand=True, fill="both", padx=20, pady=20)
 
     def minimize_window(self):
