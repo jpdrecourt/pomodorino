@@ -19,7 +19,7 @@ class PomodoroTimer:
         self.is_running = False
         self.create_window()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
-        self.keep_on_top()
+        self.root.bind("<Map>", self.on_deiconify)
 
     def is_minimized(self):
         return self.root.state() == 'iconic'
@@ -36,18 +36,16 @@ class PomodoroTimer:
         self.root.iconbitmap(resource_path('pomodoro_77K_1.ico'))
         self.root.configure(bg="black")
         self.root.title("Pomodoro Timer")
+        self.root.attributes('-topmost', True)
 
         self.start_button = tk.Button(self.root, text="Start", font=("Arial", 30), command=self.start_pomodoro)
         self.start_button.config(bg="white", fg="black")
         self.start_button.pack(expand=True, fill="both", padx=20, pady=20)
 
-    def keep_on_top(self):
+    def on_deiconify(self, event):
         if not self.is_running:
-            if self.is_minimized():
-                self.root.deiconify()
             self.root.attributes('-topmost', True)
-            self.root.lift()
-        self.root.after(100, self.keep_on_top)
+            self.root.focus_set()
 
     def start_pomodoro(self):
         if not self.is_running:
@@ -65,9 +63,10 @@ class PomodoroTimer:
 
         self.is_running = False
         self.root.deiconify()
+        self.root.attributes('-topmost', True)
+        self.root.focus_set()
         self.start_button.config(state=tk.NORMAL, text="Start")
         self.root.title("Pomodoro Timer")
-        self.keep_on_top()
 
     def on_closing(self):
         self.is_running = False
