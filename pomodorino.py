@@ -2,6 +2,7 @@ import tkinter as tk
 import time
 import threading
 import sys, os.path
+from ctypes import windll
 
 POMODORO_DURATION = 5  # For testing purposes
 
@@ -20,6 +21,9 @@ class PomodoroTimer:
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.keep_on_top()
 
+    def is_minimized(self):
+        return self.root.state() == 'iconic'
+    
     def create_window(self):
         window_width = 300
         window_height = 100
@@ -39,8 +43,11 @@ class PomodoroTimer:
 
     def keep_on_top(self):
         if not self.is_running:
+            if self.is_minimized():
+                self.root.deiconify()
             self.root.attributes('-topmost', True)
-            self.root.after(100, self.keep_on_top)
+            self.root.lift()
+        self.root.after(100, self.keep_on_top)
 
     def start_pomodoro(self):
         if not self.is_running:
