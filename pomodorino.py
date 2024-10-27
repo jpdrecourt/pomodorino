@@ -66,9 +66,9 @@ class PomodoroTimer:
 
     def run_timer(self):
         for remaining in range(POMODORO_DURATION, 0, -1):
-            mins, secs = divmod(remaining, 60)
-            self.root.title(f"{mins:02}:{secs:02}")
-            sleep(1)
+            mins = divmod(remaining, 60)
+            self.root.title(f"{mins:02}mins")
+            sleep(60)
 
         self.is_running = False
         self.pomodoros += 1  # Increment the pomodoros count
