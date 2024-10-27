@@ -3,7 +3,7 @@ from time import sleep
 from threading import Thread
 from pathlib import Path
 
-POMODORO_DURATION = 25 * 60  # 25 minutes
+POMODORO_DURATION = 25  # 25 minutes
 
 class PomodoroTimer:
     def __init__(self):
@@ -65,9 +65,9 @@ class PomodoroTimer:
             Thread(target=self.run_timer, daemon=True).start()
 
     def run_timer(self):
+        
         for remaining in range(POMODORO_DURATION, 0, -1):
-            mins = divmod(remaining, 60)
-            self.root.title(f"{mins:02}mins")
+            self.root.title(f"{remaining:02}' left")
             sleep(60)
 
         self.is_running = False
