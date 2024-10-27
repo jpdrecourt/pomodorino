@@ -3,7 +3,7 @@ from time import sleep
 from threading import Thread
 from pathlib import Path
 
-POMODORO_DURATION = 5 # 25 * 60  # 25 minutes
+POMODORO_DURATION = 25 * 60  # 25 minutes
 
 class PomodoroTimer:
     def __init__(self):
